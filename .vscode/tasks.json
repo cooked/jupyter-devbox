@@ -1,0 +1,32 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "presentation": {
+        "panel": "new"
+    },
+    "tasks": [
+		{
+			"label": "Jupyter - Export to PDF (output only)",
+			"type": "shell",
+			"group": "build",
+			"command": "jupyter-nbconvert",
+			"args": [
+                "--to", "pdf",
+                "--TemplateExporter.exclude_input", "True",
+                "${file}"
+			],
+		},
+        {
+			"label": "Jupyter - Export to HTML (output only)",
+			"type": "shell",
+			"group": "build",
+			"command": "jupyter-nbconvert",
+			"args": [
+                "--to", "html",
+                "--TemplateExporter.exclude_input", "True",
+                "${file}"
+			],
+		}
+    ]
+}

@@ -51,15 +51,18 @@ RUN apt-get update && \
         gcc g++ build-essential cmake build-essential \
         unzip libjpeg-dev libpng-dev libpq-dev \
         imagemagick gnuplot gnuplot-x11 libssl-dev libzmq3-dev graphviz \
+        # #https://nbconvert.readthedocs.io/en/latest/install.html
+        # pandoc: to convert to formats other than HTML
+        # texlive (packages): to convert to PDF 
+        pandoc \
+        texlive-xetex texlive-fonts-recommended texlive-plain-generic \
         # py3
         python3 \
         python3-dev \
         python3-pip \
         python3-venv \
         python3-wheel \
-        python3-setuptools \
-        python3-opencv \
-        libopencv-dev
+        python3-setuptools
 
 # Cleanup
 RUN apt-get autoremove -fy && \
@@ -74,17 +77,14 @@ RUN pip3 config --user set global.disable-pip-version-check true && \
     pip3 install --upgrade pip && \
     pip3 install --upgrade setuptools && \
     pip3 install --upgrade wheel && \
-    pip3 install tensorflow && \
     pip3 install ipykernel docutils jupyter pyyaml pylint h5py && \
     pip3 install numpy pandas sklearn scipy && \
     pip3 install matplotlib seaborn pydotplus && \
-    pip3 install keras --no-deps && \
-    pip3 install opencv-python && \
-    pip3 install imutils && \
     pip3 install sqlalchemy && \
     pip3 install pyautogui && \
     pip3 install pandas-datareader requests_cache && \
-    pip3 install yfinance alpha_vantage quandl
+    # additional packages for data import from xls and influx
+    pip3 install openpyxl influxdb msal
 
 # re-enable dialog mode for apt-get
 ENV DEBIAN_FRONTEND=dialog
